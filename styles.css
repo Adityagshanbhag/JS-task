@@ -1,0 +1,107 @@
+#dataGrid {
+  height: 500px;
+  width: 1400px;
+  float: left;
+}
+#Report {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #4410a3;
+  border-radius: 5px;
+  margin-left: 1250px;
+  margin-top: 5px;
+}
+#selectBox {
+  width: 400px;
+  margin-top: 10px;
+  float: left;
+}
+.button {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background-color: #4410a3;
+  border-radius: 5px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.button:active {
+  background-color: #04aa6d;
+  transform: translateY(4px);
+}
+
+#tabPanel {
+  width: 1400px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+table {
+  width: 800px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  float: left;
+  margin-right: 30px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+img{
+  margin-top: 20px;
+  width: 400px;
+  height: 375px;
+}
+
+#home{
+  margin-top: 30px;
+  margin-left: 5px;
+}
+#form {
+  height: 400px;
+  width: 1000px;
+  margin-top: 25px;
+}
+
+
+
+.dx-form .dx-item .dx-item-content {
+  background-color: aliceblue;
+  padding-left: 5px;
+  padding-right: 15px;
+  padding-top: 5px;
+  border-radius: 10px;
+}
+
+.dx-form .dx-button {
+  background-color:#4410a3;
+  color:white;
+  
+}
+
+.dx-form .dx-button:hover {
+  background-color:#04aa6d;
+  color:white;
+  
+}
+
+#home2{
+  margin-top: 185px;
+  margin-left: 5px;
+}

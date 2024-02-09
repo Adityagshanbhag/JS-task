@@ -12,8 +12,9 @@ $(document).ready(function () {
       items: [
         {
           title: "Active Forms",
+          icon:"floppy",
           template: function () {
-            $("#dataGrid").dxDataGrid({
+            return $("#dataGrid").dxDataGrid({
               dataSource: jsonData.products,
               keyExpr: "id",
               showRowLines: true,
@@ -35,10 +36,10 @@ $(document).ready(function () {
                   width: 40,
                   allowFiltering: false,
                   allowSorting: false,
-                  cellTemplate(container,options) {
-                    var iconElement= $("<div>")
+                  cellTemplate(container, options) {
+                    var iconElement = $("<div>")
                       .html('<i class="fa fa-eye" aria-hidden="true"></i>')
-                      .css("cursor", "pointer") 
+                      .css("cursor", "pointer")
                       .appendTo(container);
                     iconElement.on("click", function () {
                       var data = options.data;
@@ -74,8 +75,8 @@ $(document).ready(function () {
         },
         {
           title: "History",
+          icon:"comment",
           template: function () {
-            // $("#dataGrid").dxDataGrid("instance").option("visible", false);
           },
         },
       ],

@@ -80,7 +80,6 @@ img{
 }
 
 
-
 .dx-form .dx-item .dx-item-content {
   background-color: aliceblue;
   padding-left: 10px;
@@ -99,7 +98,7 @@ img{
 }
 
 .dx-form .dx-button:hover {
-  background-color:#04aa6d;
+  background-color:#04aa6d; 
   color:white;
   
 }
@@ -107,4 +106,9 @@ img{
 #home2{
   margin-top: 175px;
   margin-left: 5px;
+}
+
+.dx-tabpanel {
+  border: 2px solid #ccc;
+  border-radius: 5px; 
 }

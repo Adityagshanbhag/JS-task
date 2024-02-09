@@ -71,7 +71,7 @@ $(document).ready(function () {
               onSelectionChanged: function (selectedItems) {
                 const data = selectedItems.selectedRowsData[0];
                 if (data) {
-                  window.location.href = "about.html?id=" + data["id"];
+                  window.location.href = "addProd.html?id=" + data["id"];
                 }
               },
             });
@@ -88,17 +88,17 @@ $(document).ready(function () {
   });
 
   const data = [
-    "Automotive",
-    "Fragnances",
-    "Furniture",
-    "Groceries",
-    "Home-decoration",
-    "Laptops",
-    "Lighting",
-    "Motorcycle",
-    "Skincare",
-    "Smartphones",
-    "Sunglasses",
+    "automotive",
+    "fragnances",
+    "furniture",
+    "groceries",
+    "home-decoration",
+    "laptops",
+    "lighting",
+    "motorcycle",
+    "skincare",
+    "smartphones",
+    "sunglasses",
   ];
   var category;
   $("#selectBox").dxSelectBox({

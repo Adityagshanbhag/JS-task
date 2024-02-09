@@ -8,22 +8,59 @@ $(document).ready(function () {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
   var itemCategory = getUrlParameter("category");
+  var itemId = getUrlParameter("id");
   console.log(itemCategory);
-
-  var employee = {
-    id: "",
-    title: "",
-    brand: "",
-    category: itemCategory,
-    description: "",
-    rating: "",
-    price: "",
-    discountPercentage: "",
-    stock: "",
-  };
-
+  console.log(itemId);
+  var employee;
+  var titles;
+  if (itemCategory !== null) {
+    employee = {
+      id: "",
+      title: "",
+      brand: "",
+      category: itemCategory,
+      description: "",
+      rating: "",
+      price: "",
+      discountPercentage: "",
+      stock: "",
+    };
+    var settings = {
+      url: "https://dummyjson.com/products?limit=100",
+      method: "GET",
+      async: false,
+      timeout: 0,
+    };
+    $.ajax(settings).done(function (response) {
+      var jData = response;
+      var jsonData = jData["products"];
+      console.log(jsonData);
+      console.log(itemCategory);
+      titles = jsonData.reduce(function (acc, curr) {
+        if (curr.category == itemCategory) {
+          console.log(curr.category);
+          acc.push(curr.title);
+        }
+        return acc;
+      }, []);
+      console.log(titles);
+    });
+  }
+  if (itemId !== null) {
+    var fetchItem = {
+      url: "https://dummyjson.com/products/" + String(itemId),
+      method: "GET",
+      async: false,
+      timeout: 0,
+    };
+    $.ajax(fetchItem).done(function (jsonData) {
+      employee = jsonData;
+      titles = [employee["title"]];
+    });
+  }
   $("#form").dxForm({
     formData: employee,
+    labelMode: "floating",
     items: [
       {
         itemType: "group",
@@ -33,8 +70,19 @@ $(document).ready(function () {
           {
             dataField: "category",
             caption: "Category",
+            isRequired: true,
             editorOptions: {
-              disabled: true,
+              disabled: false,
+            },
+          },
+          {
+            dataField: "title",
+            caption: "Product",
+            isRequired: true,
+            editorType: "dxSelectBox",
+            editorOptions: {
+              items: titles,
+              searchEnabled: true,
             },
           },
           {
@@ -48,11 +96,7 @@ $(document).ready(function () {
               },
             ],
           },
-          {
-            dataField: "title",
-            caption: "Title",
-            isRequired: true,
-          },
+
           {
             dataField: "brand",
             caption: "Brand",
@@ -63,46 +107,89 @@ $(document).ready(function () {
             caption: "Description",
           },
           {
-            dataField: "rating",
-            caption: "Rating",
-            isRequired: true,
-            validationRules: [
+            itemType: "group",
+            colCount: 2,
+            items: [
               {
-                type: "numeric",
-                message: "Enter a numeric value",
+                itemType: "group",
+                items: [
+                  {
+                    dataField: "rating",
+                    caption: "Rating",
+                    isRequired: true,
+                    editorType: "dxNumberBox",
+                    editorOptions: {
+                      dataType: "number",
+                      validationRules: [
+                        {
+                          type: "numeric",
+                          message: "Enter a numeric value",
+                        },
+                      ],
+                      min: 0.0,
+                      max: 5.0,
+                    },
+                  },
+                  {
+                    dataField: "price",
+                    caption: "Price",
+                    isRequired: true,
+                    editorType: "dxNumberBox",
+                    editorOptions: {
+                      dataType: "number",
+                      showSpinButtons: true,
+                      validationRules: [
+                        {
+                          type: "numeric",
+                          message: "Enter a numeric value",
+                        },
+                      ],
+                      min: 0,
+                    },
+                  },
+                ],
               },
-            ],
-          },
-          {
-            dataField: "price",
-            caption: "Price",
-            isRequired: true,
-            validationRules: [
               {
-                type: "numeric",
-                message: "Enter a numeric value",
-              },
-            ],
-          },
-          {
-            dataField: "discountPercentage",
-            caption: "Discount Percentage",
-            isRequired: true,
-            validationRules: [
-              {
-                type: "numeric",
-                message: "Enter a numeric value",
-              },
-            ],
-          },
-          {
-            dataField: "stock",
-            caption: "Stock",
-            isRequired: true,
-            validationRules: [
-              {
-                type: "numeric",
-                message: "Enter an integer",
+                itemType: "group",
+                items: [
+                  {
+                    dataField: "discountPercentage",
+                    caption: "Discount Percentage",
+                    isRequired: true,
+                    editorType: "dxNumberBox",
+                    editorOptions: {
+                      dataType: "number",
+                      validationRules: [
+                        {
+                          type: "numeric",
+                          message: "Enter a numeric value",
+                        },
+                      ],
+                      min: 0.0,
+                    },
+                  },
+                  {
+                    dataField: "stock",
+                    caption: "Stock",
+                    isRequired: true,
+                    editorType: "dxNumberBox",
+                    editorOptions: {
+                      dataType: "number",
+                      showSpinButtons: true,
+                      format: {
+                        type: "fixedPoint",
+                        precision: 0,
+                      },
+                      validationRules: [
+                        {
+                          type: "numeric",
+                          message: "Enter an integer",
+                        },
+                      ],
+                      min: 0,
+                    },
+                  },
+                ],
               },
             ],
           },

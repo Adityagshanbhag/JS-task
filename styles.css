@@ -10,7 +10,7 @@
   cursor: pointer;
   text-align: center;
   color: #fff;
-  background-color: #4410a3;
+  background-color: darkblue;
   border-radius: 5px;
   margin-left: 1250px;
   margin-top: 5px;
@@ -27,7 +27,7 @@
   cursor: pointer;
   text-align: center;
   color: #fff;
-  background-color: #4410a3;
+  background-color: darkblue;
   border-radius: 5px;
   margin-left: 20px;
   margin-top: 10px;
@@ -91,8 +91,10 @@ img{
 
 
 .dx-form .dx-button {
-  background-color:#4410a3;
+  background-color:darkblue;
   color:white;
+  margin-top: 15px;
+  border-radius: 5px;
   
 }
 
@@ -103,6 +105,6 @@ img{
 }
 
 #home2{
-  margin-top: 230px;
+  margin-top: 175px;
   margin-left: 5px;
 }

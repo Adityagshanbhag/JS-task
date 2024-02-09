@@ -37,3 +37,7 @@ Selected category should be already selected in the opened new form page.
 
 ![alt text](image-1.png)
 
+# JS-task 03
+
+Page 02:
+Add one more select box in the details page, with the product details of the selected category. Whenever the product is selected, fill the other fields with its corresponding values.  

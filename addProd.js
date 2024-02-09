@@ -13,6 +13,7 @@ $(document).ready(function () {
   console.log(itemId);
   var employee;
   var titles;
+  var jsonData;
   if (itemCategory !== null) {
     employee = {
       id: "",
@@ -33,17 +34,13 @@ $(document).ready(function () {
     };
     $.ajax(settings).done(function (response) {
       var jData = response;
-      var jsonData = jData["products"];
-      console.log(jsonData);
-      console.log(itemCategory);
+      jsonData = jData["products"];
       titles = jsonData.reduce(function (acc, curr) {
         if (curr.category == itemCategory) {
-          console.log(curr.category);
           acc.push(curr.title);
         }
         return acc;
       }, []);
-      console.log(titles);
     });
   }
   if (itemId !== null) {
@@ -83,6 +80,25 @@ $(document).ready(function () {
             editorOptions: {
               items: titles,
               searchEnabled: true,
+              onValueChanged: function (e) {
+                if (e.value) {
+                  var selectedTitle = e.value;
+                  var selectedProduct = jsonData.find(function (product) {
+                    return product.title === selectedTitle;
+                  });
+                  if (selectedProduct) {
+                    employee.id = selectedProduct.id;
+                    employee.brand = selectedProduct.brand;
+                    employee.description = selectedProduct.description;
+                    employee.rating = selectedProduct.rating;
+                    employee.price = selectedProduct.price;
+                    employee.discountPercentage =
+                      selectedProduct.discountPercentage;
+                    employee.stock = selectedProduct.stock;
+                    $("#form").dxForm("instance").option("formData", employee);
+                  }
+                }
+              },
             },
           },
           {

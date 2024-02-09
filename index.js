@@ -14,50 +14,38 @@ $(document).ready(function () {
           title: "Active Forms",
           template: function () {
             $("#dataGrid").dxDataGrid({
-              dataSource: jsonData["products"],
+              dataSource: jsonData.products,
               keyExpr: "id",
               showRowLines: true,
               rowAlternationEnabled: true,
               showBorders: true,
               columns: [
-                {
-                  dataField: "id",
-                  dataType: "number",
-                  width: 50,
-                },
+                { dataField: "id", dataType: "number", width: 50 },
                 "title",
                 "brand",
                 "category",
-                {
-                  dataField: "description",
-                  width: 450,
-                },
-                {
-                  dataField: "rating",
-                  dataType: "number",
-                },
-                {
-                  dataField: "price",
-                  dataType: "number",
-                },
-                {
-                  dataField: "discountPercentage",
-                  dataType: "number",
-                },
-                {
-                  dataField: "stock",
-                  dataType: "number",
-                },
+                { dataField: "description", width: 450 },
+                { dataField: "rating", dataType: "number" },
+                { dataField: "price", dataType: "number" },
+                { dataField: "discountPercentage", dataType: "number" },
+                { dataField: "stock", dataType: "number" },
                 {
                   dataField: "icon",
                   caption: "",
                   width: 40,
                   allowFiltering: false,
                   allowSorting: false,
-                  cellTemplate(container) {
-                    $("<div>")
+                  cellTemplate(container,options) {
+                    var iconElement= $("<div>")
                       .html('<i class="fa fa-eye" aria-hidden="true"></i>')
+                      .css("cursor", "pointer") 
                       .appendTo(container);
+                    iconElement.on("click", function () {
+                      var data = options.data;
+                      if (data) {
+                        window.location.href = "addProd.html?id=" + data.id;
+                      }
+                    });
                   },
                 },
               ],
@@ -65,14 +53,21 @@ $(document).ready(function () {
               allowColumnResizing: true,
               filterRow: { visible: true },
               searchPanel: { visible: true },
-              selection: {
-                mode: "single",
-              },
-              onSelectionChanged: function (selectedItems) {
-                const data = selectedItems.selectedRowsData[0];
-                if (data) {
-                  window.location.href = "addProd.html?id=" + data["id"];
-                }
+              selection: { mode: "single" },
+              onRowPrepared: function (e) {
+                var timer;
+                $(e.rowElement)
+                  .on("dxdblclick", function () {
+                    clearTimeout(timer);
+                    const data = e.data;
+                    if (data) {
+                      window.location.href = "addProd.html?id=" + data.id;
+                    }
+                  })
+                  .on("click", function () {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {}, 300);
+                  });
               },
             });
           },
@@ -89,28 +84,39 @@ $(document).ready(function () {
 
   const data = [
     "automotive",
-    "fragnances",
+    "fragrances",
     "furniture",
     "groceries",
     "home-decoration",
     "laptops",
     "lighting",
+    "mens-shirts",
+    "mens-shoes",
+    "mens-watches",
     "motorcycle",
     "skincare",
     "smartphones",
     "sunglasses",
+    "tops",
+    "women-bags",
+    "womens-dresses",
+    "womens-jewellery",
+    "womens-shoes",
+    "womens-watches",
   ];
-  var category;
+
+  var category = null;
+
   $("#selectBox").dxSelectBox({
     dataSource: data,
     searchEnabled: true,
     placeholder: "Select Category....",
     showClearButton: true,
     onValueChanged: function (e) {
-      console.log(e.component.option("displayValue"));
-      category=e.component.option("displayValue");
+      category = e.value;
     },
   });
+
   $("#Add").on("click", function () {
     if (category) {
       window.location.href =
